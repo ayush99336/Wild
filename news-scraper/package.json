@@ -16,6 +16,7 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+    "@openzeppelin/contracts": "^5.4.0",
     "axios": "^1.11.0",
     "axios-retry": "^4.5.0",
     "cheerio": "^1.1.2",
@@ -25,8 +26,7 @@
     "express": "^5.1.0",
     "fast-xml-parser": "^5.2.5",
     "p-limit": "^4.0.0",
-    "puppeteer": "^24.15.0",
-        "@openzeppelin/contracts": "^5.4.0"
+    "puppeteer": "^24.15.0"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^6.1.0",
