@@ -4,7 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "scrape": "ts-node src/index.ts",
+    "serve": "ts-node src/server.ts",
+    "process": "ts-node src/process/testProcessing.ts",
+    "compile": "hardhat compile",
+    "deploy:sepolia": "hardhat run scripts/deploy.ts --network sepolia"
   },
   "keywords": [],
   "author": "",
@@ -16,14 +21,20 @@
     "cheerio": "^1.1.2",
     "dayjs": "^1.11.13",
     "dotenv": "^17.2.0",
+    "ethers": "^6.15.0",
+    "express": "^5.1.0",
     "fast-xml-parser": "^5.2.5",
     "p-limit": "^4.0.0",
-    "puppeteer": "^24.15.0"
+    "puppeteer": "^24.15.0",
+        "@openzeppelin/contracts": "^5.4.0"
   },
   "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^6.1.0",
     "@types/cheerio": "^0.22.35",
+    "@types/express": "^4.17.17",
     "@types/node": "^24.1.0",
     "@types/p-limit": "^2.0.1",
+    "hardhat": "^2.26.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
   }
