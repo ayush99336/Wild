@@ -1,11 +1,11 @@
 import { ethers } from 'hardhat';
 
 async function main() {
-  console.log('Deploying Reward contract...');
-  const Reward = await ethers.getContractFactory('Reward');
-  const reward = await Reward.deploy();
-  await reward.waitForDeployment();
-  console.log('Reward deployed to:', reward.target);
+  console.log('Deploying NFTReward contract...');
+  const NFTReward = await ethers.getContractFactory('NFTReward');
+  const nftReward = await NFTReward.deploy();
+  await nftReward.waitForDeployment();
+  console.log('NFTReward deployed to:', nftReward.target);
 }
 
 main().catch((error) => {

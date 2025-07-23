@@ -1,0 +1,84 @@
+// src/server.ts
+import express, { Request, Response } from 'express'
+import fs from 'fs';
+import path from 'path';
+import { filterByHours, rankAuthors, rankTopics, Article } from './process/rank';
+import { logSimTx,getTxLog } from './sim/txlog';
+import 'dotenv/config';
+import { JsonRpcProvider, Wallet, Contract } from 'ethers';
+
+const app = express();
+app.use(express.json());
+
+const DATA_DIR = path.join(__dirname, '..', 'data');
+const CT_FILE = path.join(DATA_DIR, 'cointelegraph-latest.json');
+
+// Reusable loader
+/** Load articles from JSON file */
+function loadArticles(): Article[] {
+  return JSON.parse(fs.readFileSync(CT_FILE, 'utf8')) as Article[];
+}
+// On-chain contract setup
+const { SEPOLIA_RPC_URL, PRIVATE_KEY, CONTRACT_ADDRESS } = process.env;
+let nftContract: Contract | null = null;
+let contractOwnerAddress: string | null = null;
+if (CONTRACT_ADDRESS && SEPOLIA_RPC_URL && PRIVATE_KEY) {
+  const provider = new JsonRpcProvider(SEPOLIA_RPC_URL);
+  const wallet = new Wallet(PRIVATE_KEY, provider);
+  contractOwnerAddress = wallet.address;
+  // Load NFTReward ABI
+  const artifactPath = path.join(__dirname, '..', 'artifacts', 'contracts', 'NFTReward.sol', 'NFTReward.json');
+  const artifact = JSON.parse(fs.readFileSync(artifactPath, 'utf8'));
+  nftContract = new Contract(CONTRACT_ADDRESS, artifact.abi, wallet);
+}
+
+// GET /articles
+app.get('/articles', (_req: Request, res: Response) => {
+  const arts = filterByHours(loadArticles(), 48);
+  res.json(arts);
+});
+
+// GET /rank/authors
+app.get('/rank/authors', (_req: Request, res: Response) => {
+  const arts = filterByHours(loadArticles(), 48);
+  res.json(rankAuthors(arts));
+});
+
+// GET /rank/topics
+app.get('/rank/topics', (_req: Request, res: Response) => {
+  const arts = filterByHours(loadArticles(), 48);
+  res.json(rankTopics(arts));
+});
+
+// POST /airdrop  { type: "author"|"topic", name: string }
+app.post('/airdrop', async (req: Request, res: Response) => {
+  const { type, name } = req.body;
+  if (!['author', 'topic'].includes(type) || !name) {
+    return res.status(400).json({ error: 'type must be author|topic and name required' });
+  }
+  const tx = logSimTx(type as 'author'|'topic', name);
+  let onChainHash: string | null = null;
+  let tokenId: number | null = null;
+  if (nftContract && contractOwnerAddress) {
+    try {
+      // Mint an NFT with empty metadata URI or customize per need
+      const txResponse = await nftContract.mintReward(contractOwnerAddress, name, '');
+      const receipt = await txResponse.wait();
+      onChainHash = receipt.transactionHash;
+      // Extract tokenId from events
+      const ev = receipt.events?.find(e => e.event === 'RewardMinted');
+      if (ev && ev.args) tokenId = ev.args.tokenId.toNumber();
+    } catch (err: any) {
+      console.error('on-chain mint failed', err);
+    }
+   }
+  res.json({ ...tx, onChainTx: onChainHash, tokenId });
+});
+
+// GET /txlog
+app.get('/txlog', (_req: Request, res: Response) => {
+  res.json(getTxLog());
+});
+
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, () => console.log(`API listening on ${PORT}`));
