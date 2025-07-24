@@ -7,6 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "scrape": "ts-node src/index.ts",
     "serve": "ts-node src/server.ts",
+    "frontend": "cd frontend && npm run dev",
+    "start": "concurrently \"npm run serve\" \"npm run frontend\"",
     "process": "ts-node src/process/testProcessing.ts",
     "compile": "hardhat compile",
     "deploy:sepolia": "hardhat run scripts/deploy.ts --network sepolia"
@@ -38,6 +40,7 @@
     "@types/p-limit": "^2.0.1",
     "hardhat": "^2.26.1",
     "ts-node": "^10.9.2",
+    "concurrently": "^8.0.0",
     "typescript": "^5.8.3"
   }
 }
