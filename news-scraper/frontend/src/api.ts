@@ -1,3 +1,5 @@
+  // Trigger backend scraping and processing
+
 import axios from 'axios';
 import type { Article, RankingItem, AirdropRequest, AirdropResponse, SimTx } from './types';
 
@@ -36,6 +38,12 @@ export const newsApi = {
   // Get transaction log
   getTxLog: async (): Promise<SimTx[]> => {
     const response = await api.get('/txlog');
+    return response.data;
+  },
+
+  // Trigger backend scraping and processing
+  scrapeAndProcess: async (): Promise<any> => {
+    const response = await api.post('/scrape');
     return response.data;
   },
 };

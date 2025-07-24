@@ -10,6 +10,7 @@ import { RefreshCw, ExternalLink, Calendar, User, Tag } from 'lucide-react';
 export function ArticlesView() {
   const [articles, setArticles] = useState<Article[]>([]);
   const [loading, setLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -27,6 +28,21 @@ export function ArticlesView() {
       console.error('Error loading articles:', err);
     } finally {
       setLoading(false);
+    }
+  };
+
+  // One-click refresh: triggers backend scrape, then reloads articles
+  const refreshArticles = async () => {
+    setRefreshing(true);
+    setError(null);
+    try {
+      await newsApi.scrapeAndProcess();
+      await loadArticles();
+    } catch (err) {
+      setError('Failed to refresh articles. Scraping or backend error.');
+      console.error('Error refreshing articles:', err);
+    } finally {
+      setRefreshing(false);
     }
   };
 
@@ -59,9 +75,18 @@ export function ArticlesView() {
             Latest CoinTelegraph articles ({articles.length} found)
           </p>
         </div>
-        <Button onClick={loadArticles} variant="outline" size="sm">
-          <RefreshCw className="mr-2 h-4 w-4" />
-          Refresh
+        <Button onClick={refreshArticles} variant="outline" size="sm" disabled={refreshing}>
+          {refreshing ? (
+            <>
+              <RefreshCw className="mr-2 h-4 w-4 animate-spin" />
+              Refreshing...
+            </>
+          ) : (
+            <>
+              <RefreshCw className="mr-2 h-4 w-4" />
+              Refresh
+            </>
+          )}
         </Button>
       </div>
 

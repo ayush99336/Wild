@@ -1,3 +1,4 @@
+
 // src/server.ts
 import express, { Request, Response } from 'express'
 import cors from 'cors'
@@ -8,8 +9,25 @@ import { filterByHours, rankAuthors, rankTopics, Article } from './process/rank'
 import { logSimTx,getTxLog } from './sim/txlog';
 import 'dotenv/config';
 import { JsonRpcProvider, Wallet, Contract } from 'ethers';
-
+import { exec } from 'child_process';
 const app = express();
+// POST /scrape - Run scraping and processing script (one-click automation)
+app.post('/scrape', async (_req: Request, res: Response) => {
+  console.log('🔄 /scrape endpoint called: starting scraping and processing...');
+  const scriptPath = path.join(__dirname, 'index.ts');
+  // Use ts-node to run TypeScript directly
+  exec(`npx ts-node ${scriptPath}`, (error, stdout, stderr) => {
+    if (error) {
+      console.error('❌ Scrape automation failed:', error, stderr);
+      return res.status(500).json({ status: 'error', error: 'Scrape automation failed', details: stderr || error.message });
+    }
+    console.log('✅ Scrape automation complete:', stdout);
+    res.json({ status: 'ok', message: 'Scraping and processing complete', output: stdout });
+  });
+});
+
+// CORS preflight for /scrape (if needed)
+app.options('/scrape', cors());
 
 // CORS configuration
 app.use(cors({
