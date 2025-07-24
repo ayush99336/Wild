@@ -1,0 +1,56 @@
+[
+  {
+    "id": "74c88fab-e301-4907-a010-22590eead8eb",
+    "type": "author",
+    "name": "Cointelegraph by Rakesh Upadhyay",
+    "timestamp": 1753304787928
+  },
+  {
+    "id": "fc78307c-80cc-42d4-b341-739e94d73765",
+    "type": "author",
+    "name": "Cointelegraph by Rakesh Upadhyay",
+    "timestamp": 1753305062657
+  },
+  {
+    "id": "be03734b-8635-49bd-b334-1ebaa524e908",
+    "type": "airdrop",
+    "name": "Cointelegraph by Rakesh Upadhyay",
+    "category": "author",
+    "timestamp": "2025-07-23T21:49:54.279Z",
+    "isOnChain": true,
+    "txHash": "0x6c793916b0ba1701ec4017ffe4acd81d4da2ff36aa8fc362e406e5ee099015e1",
+    "tokenId": "3",
+    "recipient": "0x14d67Eece2ce6312b20f9721351C6AeD500aF7Db",
+    "blockNumber": 8827737,
+    "gasUsed": "139708",
+    "contractAddress": "0x47C614427e88CDCd9DA463C7d6BE7a645E0E2328"
+  },
+  {
+    "id": "04756f12-3a30-4e51-8e3f-ed92a5747c16",
+    "type": "airdrop",
+    "name": "stablecoin",
+    "category": "topic",
+    "timestamp": "2025-07-23T21:57:54.422Z",
+    "isOnChain": true,
+    "txHash": "0x504b51d0dda0a988c3c54ca0592231cfacb86eb8ace4f3a4989d2a8291580a30",
+    "tokenId": "5",
+    "recipient": "0x14d67Eece2ce6312b20f9721351C6AeD500aF7Db",
+    "blockNumber": 8827777,
+    "gasUsed": "139432",
+    "contractAddress": "0x47C614427e88CDCd9DA463C7d6BE7a645E0E2328"
+  },
+  {
+    "id": "c06c6966-3648-4019-8eb5-99f1f49da339",
+    "type": "airdrop",
+    "name": "Cointelegraph by Adrian Zmudzinski",
+    "category": "author",
+    "timestamp": "2025-07-24T00:19:07.550Z",
+    "isOnChain": true,
+    "txHash": "0xd8e216587b71173c7e3435c8876412fb2d64f5d69207e07c79c4bc86d72631b8",
+    "tokenId": "6",
+    "recipient": "0x14d67Eece2ce6312b20f9721351C6AeD500aF7Db",
+    "blockNumber": 8828482,
+    "gasUsed": "140122",
+    "contractAddress": "0x47C614427e88CDCd9DA463C7d6BE7a645E0E2328"
+  }
+]

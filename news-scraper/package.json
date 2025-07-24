@@ -17,9 +17,11 @@
   "type": "commonjs",
   "dependencies": {
     "@openzeppelin/contracts": "^5.4.0",
+    "@types/cors": "^2.8.19",
     "axios": "^1.11.0",
     "axios-retry": "^4.5.0",
     "cheerio": "^1.1.2",
+    "cors": "^2.8.5",
     "dayjs": "^1.11.13",
     "dotenv": "^17.2.0",
     "ethers": "^6.15.0",

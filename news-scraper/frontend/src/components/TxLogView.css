@@ -1,0 +1,185 @@
+.txlog-view {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 10px;
+}
+
+.header h2 {
+  margin: 0;
+  color: #333;
+}
+
+.refresh-btn {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.refresh-btn:hover {
+  background: #0056b3;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 40px;
+  color: #666;
+  font-style: italic;
+}
+
+.tx-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.tx-item {
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 15px;
+  transition: box-shadow 0.2s;
+}
+
+.tx-item:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.tx-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.tx-type {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.tx-type.author {
+  background: #e3f2fd;
+  color: #1976d2;
+}
+
+.tx-type.topic {
+  background: #f3e5f5;
+  color: #7b1fa2;
+}
+
+.tx-time {
+  font-size: 12px;
+  color: #666;
+}
+
+.tx-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.tx-name {
+  font-size: 16px;
+  color: #333;
+}
+
+.tx-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.tx-id {
+  color: #666;
+}
+
+.on-chain-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.blockchain-badge {
+  background: linear-gradient(135deg, #28a745, #20c997);
+  color: white;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.sim-badge {
+  background: #ffc107;
+  color: #333;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.tx-hash a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.tx-hash a:hover {
+  text-decoration: underline;
+}
+
+.token-id {
+  background: #e9ecef;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-weight: 500;
+}
+
+.loading, .error {
+  text-align: center;
+  padding: 40px;
+  font-size: 16px;
+}
+
+.error {
+  color: #dc3545;
+  background: #f8d7da;
+  border: 1px solid #f5c6cb;
+  border-radius: 4px;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .tx-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+  
+  .tx-details {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .on-chain-info {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
